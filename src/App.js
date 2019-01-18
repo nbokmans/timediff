@@ -6,19 +6,15 @@ import './App.css';
 
 class App extends Component {
   state = {
-    start: moment().format('H.mm'),
-    end: moment().format('H.mm')
+    start: moment().format('DD.MM.YYYY H.mm'),
+    end: moment().format('DD.MM.YYYY H.mm')
   }
 
   render() {
     const { start, end } = this.state;
     let diff = '   -';
-    const startDate = moment(start, 'H.mm');
-    let endDate = moment(end, 'H.mm');
-
-    if (endDate.isBefore(startDate, 'h')) {
-      endDate = moment(endDate).add(1, 'd');
-    }
+    const startDate = moment(start, 'DD.MM.YYYY H.mm');
+    const endDate = moment(end, 'DD.MM.YYYY H.mm');
 
     if (startDate.isValid() && endDate.isValid()) {
       diff = moment.duration(endDate.diff(startDate)).format('H[ hours and ]m[ minutes]', {
