@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Datetime from 'react-datetime';
+import moment from 'moment';
+import 'moment-duration-format';
 import './App.css';
 
 class App extends Component {
+  state = {
+    start: moment(),
+    end: moment()
+  }
+
   render() {
+    const { start, end } = this.state;
+    const diff = moment.duration(end.diff(start)).format('HH:mm', {
+      trim: false
+    });
+
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <div style={{ float: 'left' }}>
+        <div style={{ float: 'left' }}>
+          Start
+          <Datetime
+            value={start}
+            onChange={(newValue) => this.setState({ start: newValue })} />
+        </div>
+        <div style={{ float: 'left' }}>
+          End
+          <Datetime
+            value={end}
+            onChange={(newValue) => this.setState({ end: newValue })} />
+        </div>
+        <div style={{ float: 'left' }}>
+          Time difference: <br />
+          {diff}
+        </div>
+      </div >
     );
   }
 }
