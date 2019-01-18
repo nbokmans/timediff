@@ -6,31 +6,41 @@ import './App.css';
 
 class App extends Component {
   state = {
-    start: moment(),
-    end: moment()
+    start: moment().format('H.mm'),
+    end: moment().format('H.mm')
   }
 
   render() {
     const { start, end } = this.state;
-    const diff = moment.duration(end.diff(start)).format('H[ hours and ]m[ minutes]', {
-      trim: false
-    });
+    let diff = '   -';
+    const startDate = moment(start, 'H.mm');
+    let endDate = moment(end, 'H.mm');
+
+    if (endDate.isBefore(startDate, 'h')) {
+      endDate = moment(endDate).add(1, 'd');
+    }
+
+    if (startDate.isValid() && endDate.isValid()) {
+      diff = moment.duration(endDate.diff(startDate)).format('H[ hours and ]m[ minutes]', {
+        trim: false
+      });
+    }
 
     return (
       <div style={{ float: 'left' }}>
         <div style={{ float: 'left' }}>
           Start
-          <Datetime
-            open={false}
+          <div style={{ clear: 'both' }}></div>
+          <input
             value={start}
-            onChange={(newValue) => this.setState({ start: newValue })} />
+            onChange={(e) => this.setState({ start: e.target.value })} />
         </div>
         <div style={{ float: 'left' }}>
           End
-          <Datetime
-            open={false}
+          <div style={{ clear: 'both' }}></div>
+          <input
             value={end}
-            onChange={(newValue) => this.setState({ end: newValue })} />
+            onChange={(e) => this.setState({ end: e.target.value })} />
         </div>
         <div style={{ float: 'left' }}>
           Time difference: <br />
