@@ -21,12 +21,14 @@ class App extends Component {
         <div style={{ float: 'left' }}>
           Start
           <Datetime
+            open={false}
             value={start}
             onChange={(newValue) => this.setState({ start: newValue })} />
         </div>
         <div style={{ float: 'left' }}>
           End
           <Datetime
+            open={false}
             value={end}
             onChange={(newValue) => this.setState({ end: newValue })} />
         </div>
