@@ -12,7 +12,7 @@ class App extends Component {
 
   render() {
     const { start, end } = this.state;
-    const diff = moment.duration(end.diff(start)).format('HH:mm', {
+    const diff = moment.duration(end.diff(start)).format('H[ hours and ]m[ minutes]', {
       trim: false
     });
 
